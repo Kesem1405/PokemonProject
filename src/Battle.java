@@ -72,7 +72,7 @@ public class Battle implements Attacks {
                     battleProgress(currentPokemon,opponentPokemon,turnCounter,true);
                 }
             }
-            case Def.WAITING -> charge(currentPokemon, opponentPokemon, turnCounter);
+            case Def.CHARGE -> charge(currentPokemon, opponentPokemon, turnCounter);
             case Def.EVOLUTION -> {
                 String preEvolvedName = currentPokemon.getPokemonName();
                 Pokemon evolvedPokemon = setPokemonLevel(currentPokemon);
@@ -165,11 +165,11 @@ public class Battle implements Attacks {
         boolean isSpecialAttack = true;
         if (!currentPokemon.isSpecialAttack()) {
             if (!currentPokemon.isUsedSpecialAttack()) {
-                currentPokemon.hasSpecialAttack(true);
                 switch (currentPokemon.getPokemonType()) {
                     case "Fire pokemon" -> {
                         currentPokemon.setPokemonHealth((currentPokemon.getPokemonHealth() * 50) / 100);
                         currentPokemon.setPokemonAttackPoints(0);
+                        currentPokemon.hasSpecialAttack(true);
                         System.out.println("Special attack from " + currentPokemon.getPokemonName());
                         Attacks.performAttack(currentPokemon, oponnentPokemon, 0,isSpecialAttack);
                         success = true;
@@ -177,6 +177,8 @@ public class Battle implements Attacks {
                     case "Electric pokemon" -> {
                         currentPokemon.setPokemonHealth(currentPokemon.getPokemonMaxHp());
                         currentPokemon.setPokemonAttackPoints(currentPokemon.getPokemonMaxAp());
+                        currentPokemon.hasSpecialAttack(false);
+                        currentPokemon.usedSpecialAttack(true);
                         System.out.println("You filled your power and health to the maximum!");
                         success = true;
                     }

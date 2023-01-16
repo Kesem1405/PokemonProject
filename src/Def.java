@@ -33,7 +33,7 @@ public class Def {
     public static final int LIVE_COAL = 1;
     public static final int FIRE_CLAWS = 2;
 
-    public static final int WAITING = 2;
+    public static final int CHARGE = 2;
     public static final int EVOLUTION = 3;
     public static final int SPECIAL = 4;
     public static final int START_GAME = 1;
@@ -57,5 +57,44 @@ public class Def {
     public static final int CHARIZARD_HP = 130;
     public static final int CHARIZARD_AP = 130;
 
+    public static final int SCRATCH_MINIMUM_DAMAGE = 25;
+    public static final int SCRATCH_MAXIMUM_DAMAGE = 30;
+    public static final int FLAME_TAIL_MINIMUM_DAMAGE = 30;
+    public static final int FLAME_TAIL_MAXIMUM_DAMAGE = 50;
+    public static final int LIVE_COAL_MINIMUM_DAMAGE = 0;
+    public static final int LIVE_COAL_MAXIMUM_DAMAGE = 25;
+    public static final int FIRE_CLAWS_COST = 25;
+    public static final int FIRE_CLAWS_MINIMUM_DAMAGE = 0;
+    public static final int FIRE_CLAWS_MAXIMUM_DAMAGE = 50;
+    public static final int ASSISTING_HEATER_COST = 30;
+    public static final int ASSISTING_HEATER_MINIMUM_DAMAGE = 10;
+    public static final int ASSISTING_HEATER_MAXIMUM_DAMAGE = 60;
+    public static final int FIRE_WING_DAMAGE = 30;
+    public static final int FIRE_WING_COST = 30;
+    public static final int QUICK_ATTACK_DAMAGE = 10;
+    public static final int QUICK_ATTACK_COST = 5;
+    public static final int ELECTRO_BALL_MINIMUM_DAMAGE = 30;
+    public static final int ELECTRO_BALL_MAXIMUM_DAMAGE = 40;
+    public static final int ELECTRO_BALL_COST = 10;
+    public static final int ELECTRIC_SURFER_MINIMUM_DAMAGE = 20;
+    public static final int ELECTRIC_SURFER_MAXIMUM_DAMAGE = 120;
 
+    public static final int ELECTRIC_SURFER_COST = 60;
+    public static final int FLOP_MINIMUM_DAMAGE = 20;
+    public static final int FLOP_MAXIMUM_DAMAGE = 25;
+    public static final int FLOP_COST = 20;
+    public static final int ZAP_KICK_COST = 30;
+    public static final int ZAP_KICK_MINIMUM_DAMAGE = 30;
+    public static final int ZAP_KICK_MAXIMUM_DAMAGE = 35;
+    public static final int THUNDER_COST = 60;
+    public static final int THUNDER_MINIMUM_DAMAGE = 40;
+    public static final int THUNDER_MAXIMUM_DAMAGE = 50;
+
+    public static final int THUNDER_PUNCH_COST = 80;
+    public static final int THUNDER_PUNCH_MINIMUM_DAMAGE = 50;
+    public static final int THUNDER_PUNCH_MAXIMUM_DAMAGE = 120;
+    public static final int KICK_DAMAGE = 2;
+    public static final int TRIPLE_KICK_DAMAGE = 6;
+
+    public static final int NO_DAMAGE = 0;
 }

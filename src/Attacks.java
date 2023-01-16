@@ -228,19 +228,19 @@ public interface Attacks {
 
     static boolean fireWing(Pokemon currentPokemon, Pokemon opponentPokemon, boolean isSpecialAttack) {
         boolean isAttacked = true;
-        if (currentPokemon.getAttackPoints() < 30 &&!isSpecialAttack) {
+        if (currentPokemon.getAttackPoints() < Def.FIRE_WING_COST &&!isSpecialAttack) {
             System.out.println("Not enough attack points.");
             isAttacked = false;
         } else {
-            currentPokemon.setPokemonAttackPoints(currentPokemon.getAttackPoints() - 30);
+            currentPokemon.setPokemonAttackPoints(currentPokemon.getAttackPoints() - Def.FIRE_WING_COST);
             if (currentPokemon.isTripleAttack()) {
-                opponentPokemon.setPokemonHealth(opponentPokemon.getPokemonHealth() - 30 * 3);
+                opponentPokemon.setPokemonHealth(opponentPokemon.getPokemonHealth() - Def.FIRE_WING_DAMAGE * Def.TRIPLE_ATTACK_BONUS);
                 System.out.println("Triple fire wings applied!");
                 currentPokemon.setTripleAttack(false);
                 int selfDamage = firePokemonsSelfDamage(currentPokemon);
                 System.out.println("Damage applied to opponent: 90  |" + "Self damage for attacker: " + selfDamage);
             } else {
-                opponentPokemon.setPokemonHealth(opponentPokemon.getPokemonHealth() - 30);
+                opponentPokemon.setPokemonHealth(opponentPokemon.getPokemonHealth() - Def.FIRE_WING_DAMAGE);
                 System.out.println("Fire wing  applied!!");
                 int selfDamage = firePokemonsSelfDamage(currentPokemon);
                 if (selfDamage == 0) {
@@ -260,9 +260,9 @@ public interface Attacks {
             System.out.println("Not enough attack points.");
             isAttacked = false;
         } else {
-            currentPokemon.setPokemonAttackPoints(currentPokemon.getAttackPoints() - 60);
+            currentPokemon.setPokemonAttackPoints(currentPokemon.getAttackPoints() - Def.THUNDER_COST);
             Random random = new Random();
-            int thunderDamage = random.nextInt(11) + 40;
+            int thunderDamage = random.nextInt(Def.THUNDER_MAXIMUM_DAMAGE - Def.THUNDER_MINIMUM_DAMAGE + 1) + Def.THUNDER_MINIMUM_DAMAGE;
             int energy = thunderDamage * (1 + currentPokemon.getElectricPower() / 100);
             if (currentPokemon.isTripleAttack()) {
                 damage = energy * 3;
@@ -557,18 +557,18 @@ public interface Attacks {
 
     static boolean fireClawsAttack(Pokemon currentPokemon, Pokemon opponentPokemon, boolean isSpecialAttack) {
         boolean isAttacked = true;
-        if (currentPokemon.getAttackPoints() < 25 &&!isSpecialAttack) {
+        if (currentPokemon.getAttackPoints() < Def.FIRE_CLAWS_COST &&!isSpecialAttack) {
             System.out.println("Not enough attack points.");
             isAttacked = false;
         } else {
             int selfDamage = firePokemonsSelfDamage(currentPokemon);
-            currentPokemon.setPokemonAttackPoints(currentPokemon.getAttackPoints() - 25);
+            currentPokemon.setPokemonAttackPoints(currentPokemon.getAttackPoints() - Def.FIRE_CLAWS_COST);
             Random random = new Random();
             int attackRandomDamage = random.nextInt(50) + 1;
             if (currentPokemon.isTripleAttack()) {
                 int tripleBonus = attackRandomDamage * 3;
                 System.out.println("Triple fire claws applied!!");
-                if (selfDamage == 0) {
+                if (selfDamage == Def.NO_DAMAGE) {
                     System.out.println("Damage applied to opponent: " + tripleBonus + "||  No self damage for the attacker.");
                 } else {
                     System.out.println("Damage applied to opponent: " + tripleBonus + "| Self damage for attacker:  " + selfDamage);
@@ -591,12 +591,12 @@ public interface Attacks {
     static boolean kickAttack(Pokemon currentPokemon, Pokemon opponentPokemon) {
         boolean isAttacked = true;
         if (currentPokemon.isTripleAttack()) {
-            opponentPokemon.setPokemonHealth(opponentPokemon.getPokemonHealth() - 6);
+            opponentPokemon.setPokemonHealth(opponentPokemon.getPokemonHealth() - Def.TRIPLE_KICK_DAMAGE);
             System.out.println("3 Kicks applied!");
             System.out.println("Damage dealt to opponent: 6");
             currentPokemon.setTripleAttack(false);
         }
-        opponentPokemon.setPokemonHealth(opponentPokemon.getPokemonHealth() - 2);
+        opponentPokemon.setPokemonHealth(opponentPokemon.getPokemonHealth() - Def.KICK_DAMAGE);
         System.out.println("Kick attack from: " + currentPokemon.getPokemonName());
         System.out.println("Damage dealt to opponent: 2");
         return isAttacked;
