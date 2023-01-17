@@ -18,19 +18,25 @@ public class Battle {
         do {
             if(this.successRound){
                 turnCounter++;
-                if (turnCounter >= Def.ROUND_ONE) {
-                    addElectricPokemonStats(pokemon1);
-                    generateStatsPerRound(pokemon1);
-                    Pokemon.getPokemonsStats(pokemon1, pokemon2);
-                }
             }
             Pokemon currentPokemon = null;
             Pokemon opponentPokemon = null;
             int playerID = getPlayerTurn(turnCounter);
             if (playerID == Def.PLAYER_1) {
+                if (turnCounter >= Def.ROUND_ONE) {
+                    addElectricPokemonStats(pokemon2);
+                    generateStatsPerRound(pokemon2);
+                    Pokemon.getPokemonsStats(pokemon2, pokemon1);
+                }
                 currentPokemon = pokemon1;
                 opponentPokemon = pokemon2;
+
             } else if(playerID == Def.PLAYER_2){
+                if (turnCounter >= Def.ROUND_ONE) {
+                    addElectricPokemonStats(pokemon1);
+                    generateStatsPerRound(pokemon1);
+                    Pokemon.getPokemonsStats(pokemon1, pokemon2);
+                }
                 currentPokemon = pokemon2;
                 opponentPokemon = pokemon1;
             }
@@ -50,9 +56,7 @@ public class Battle {
                 GameAction gameAction = new GameAction();
                 gameAction.createPokemons();
             }
-            case Def.EXIT -> {
-                System.out.println("Exiting game...");
-            }
+            case Def.EXIT -> System.out.println("Exiting game...");
         }
     }
 
@@ -170,16 +174,12 @@ public class Battle {
 
     private boolean specialPokemonAction(Pokemon currentPokemon, Pokemon opponentPokemon) {
         boolean success = false;
-        if (!currentPokemon.isSpecialAttack()) {
-            if (!currentPokemon.isUsedSpecialAttack()) {
+        if (!currentPokemon.isUsedSpecialAttack()){
                 switch (currentPokemon.getPokemonType()) {
-                    case "Fire pokemon", "Electric pokemon" -> {
-                        success = currentPokemon.specialAbility(opponentPokemon);
-                    }
+                    case "Fire pokemon", "Electric pokemon" -> success = currentPokemon.specialAbility(opponentPokemon);
                 }
             } else {
                 System.out.println("You already did a special attack, choose another option in the battle.");
-            }
         }
         return success;
     }
@@ -205,7 +205,7 @@ public class Battle {
     private void addElectricPokemonStats(Pokemon pokemon1) {
         if (pokemon1.getPokemonType().equals("Electric pokemon")) {
             if (pokemon1.isPokemonHpUnder20Percent()) {
-                pokemon1.setElectricPower(0);
+                pokemon1.resetElectricPower();
                 System.out.println(pokemon1.getPokemonName() + "Have less than 20% hp, The electric power reset.");
             } else {
                 pokemon1.setElectricPower(pokemon1.getElectricPower() + Def.FIVE_PERCENT);

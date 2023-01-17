@@ -14,7 +14,6 @@ public abstract class Pokemon {
 
     private boolean tripleAttack;
 
-    private boolean isPokemonSpecialAttack;
 
     private boolean usedSpecialAttack;
 
@@ -43,7 +42,7 @@ public abstract class Pokemon {
     public static void getPokemonsStats(Pokemon pokemon1, Pokemon pokemon2) {
         String pokemonStats = pokemon1.getPokemonName();
         if (pokemon1.isPokemonDead()) {
-            pokemonStats += "Health: 0";
+            pokemonStats += "Health: [0/"+pokemon1.maxHp[pokemon1.pokemonCurrentLevel()]+"]";
         } else {
             pokemonStats += " || Health:[ " + pokemon1.currentHp + "/" + pokemon1.maxHp[pokemon1.pokemonCurrentLevel()] + "] || ";
         }
@@ -59,7 +58,7 @@ public abstract class Pokemon {
         }
         pokemonStats += pokemon2.getPokemonName();
         if (pokemon2.isPokemonDead()) {
-            pokemonStats += " || Health: 0";
+            pokemonStats += " || Health: [0/" + pokemon2.maxHp[pokemon2.pokemonCurrentLevel()]+"]";
         } else {
             pokemonStats += " || Health:[ " + pokemon2.currentHp + "/" + pokemon2.getPokemonMaxHp()[pokemon2.pokemonCurrentLevel()] + "] || ";
         }
@@ -149,7 +148,10 @@ public abstract class Pokemon {
     }
 
     public void setElectricPower(int electricPower) {
-        this.electricPower += electricPower;
+        this.electricPower = this.electricPower + electricPower;
+    }
+    public void resetElectricPower() {
+        this.electricPower = 0;
     }
 
     public boolean isTripleAttack() {
@@ -162,10 +164,6 @@ public abstract class Pokemon {
 
     public int getPokemonLevel() {
         return pokemonLevel;
-    }
-
-    public boolean isSpecialAttack() {
-        return isPokemonSpecialAttack;
     }
 
     public int getAttackPoints() {
@@ -276,9 +274,6 @@ public abstract class Pokemon {
         return this.pokemonName;
     }
 
-    public void hasSpecialAttack(boolean isSpecialAttack) {
-        this.isPokemonSpecialAttack = isSpecialAttack;
-    }
 
     public void tripleAttack(Pokemon opponentPokemon, int damage){
         System.out.println("Triple damage !!" + '\n' + "Damage:" + damage*Def.TRIPLE_ATTACK_BONUS);
