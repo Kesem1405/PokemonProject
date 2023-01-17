@@ -22,7 +22,7 @@ public class Battle {
             Pokemon currentPokemon = null;
             Pokemon opponentPokemon = null;
             int playerID = getPlayerTurn(turnCounter);
-            if (playerID == Def.PLAYER_1) {
+            if (playerID == Def.PLAYER_1 && this.successRound) {
                 if (turnCounter >= Def.ROUND_ONE) {
                     addElectricPokemonStats(pokemon2);
                     generateStatsPerRound(pokemon2);
@@ -32,7 +32,7 @@ public class Battle {
                 opponentPokemon = pokemon2;
 
             } else if(playerID == Def.PLAYER_2){
-                if (turnCounter >= Def.ROUND_ONE) {
+                if (turnCounter >= Def.ROUND_ONE && this.successRound) {
                     addElectricPokemonStats(pokemon1);
                     generateStatsPerRound(pokemon1);
                     Pokemon.getPokemonsStats(pokemon1, pokemon2);
