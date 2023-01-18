@@ -9,12 +9,12 @@ public class FirePokemons extends Pokemon {
     public boolean useAttackAbility(Pokemon opponentPokemon, int attackNumber) {
         boolean success = true;
         int selfDamage = selfDamageForAttacker();
-        boolean enoughAp = isApEnoughToRemove(attackNumber);
         int damage;
         if (attackNumber == this.pokemonCurrentLevel() + 1) {
             success = this.kickAttack(opponentPokemon);
             return success;
         }
+        boolean enoughAp = isApEnoughToRemove(attackNumber);
         if (!enoughAp) {
             System.out.println("You dont have enough ability points for this attack");
             success = false;

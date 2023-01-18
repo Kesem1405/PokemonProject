@@ -24,7 +24,7 @@ public class ElectricPokemons extends Pokemon {
                 tripleAttack(opponentPokemon,damage);}
 
             else {
-                System.out.println(this.getPokemonName()+" Attacked " +opponentPokemon.getPokemonName()+ "With " +this.getAttacks()[pokemonCurrentLevel()].getAttackName()+", Damage:]" +(damage*bonusElectricToAttack())+"]");
+                System.out.println(this.getPokemonName()+" Attacked " +opponentPokemon.getPokemonName()+ " With " +this.getAttacks()[pokemonCurrentLevel()].getAttackName()+", Damage:[" +(damage*bonusElectricToAttack())+"]");
                 opponentPokemon.isHpEnoughToRemove(damage);
             }
         }

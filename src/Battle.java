@@ -22,8 +22,8 @@ public class Battle {
             Pokemon currentPokemon = null;
             Pokemon opponentPokemon = null;
             int playerID = getPlayerTurn(turnCounter);
-            if (playerID == Def.PLAYER_1 && this.successRound) {
-                if (turnCounter >= Def.ROUND_ONE) {
+            if (playerID == Def.PLAYER_1) {
+                if (turnCounter >= Def.ROUND_ONE  && this.successRound) {
                     addElectricPokemonStats(pokemon2);
                     generateStatsPerRound(pokemon2);
                     Pokemon.getPokemonsStats(pokemon2, pokemon1);
@@ -31,7 +31,7 @@ public class Battle {
                 currentPokemon = pokemon1;
                 opponentPokemon = pokemon2;
 
-            } else if(playerID == Def.PLAYER_2){
+            } if(playerID == Def.PLAYER_2){
                 if (turnCounter >= Def.ROUND_ONE && this.successRound) {
                     addElectricPokemonStats(pokemon1);
                     generateStatsPerRound(pokemon1);
@@ -40,7 +40,9 @@ public class Battle {
                 currentPokemon = pokemon2;
                 opponentPokemon = pokemon1;
             }
+            if(currentPokemon != null) {
                 battleMenu(currentPokemon, opponentPokemon);
+            }
         } while (!pokemon1.isDefeated() && !pokemon2.isDefeated());
         Pokemon.getPokemonsStats(pokemon1,pokemon2);
         battleVictory(pokemon1, pokemon2);
@@ -85,9 +87,14 @@ public class Battle {
             }
             case Def.CHARGE -> this.successRound = charge(currentPokemon);
             case Def.EVOLUTION -> {
-                this.successRound = currentPokemon.pokemonEvolution();
-                if(!this.successRound){
+                boolean isPokemonCanEvolve = checkIfPokemonCanEvolve(currentPokemon);
+                if(isPokemonCanEvolve) {
+                    currentPokemon.pokemonEvolution();
+                    this.successRound = true;
+                }
+                if(!isPokemonCanEvolve){
                     System.out.println("Turn is still with "+currentPokemon.getPokemonName());
+                    this.successRound = false;
                 }
             }
             case Def.SPECIAL -> {
@@ -208,7 +215,7 @@ public class Battle {
                 pokemon1.resetElectricPower();
                 System.out.println(pokemon1.getPokemonName() + "Have less than 20% hp, The electric power reset.");
             } else {
-                pokemon1.setElectricPower(pokemon1.getElectricPower() + Def.FIVE_PERCENT);
+                pokemon1.setElectricPower(Def.FIVE_PERCENT);
             }
         }
     }
@@ -234,6 +241,31 @@ public class Battle {
         }
         return playerID;
     }
+
+    private boolean checkIfPokemonCanEvolve(Pokemon currentPokemon){
+        boolean canEvolve = false;
+        if(currentPokemon.getPokemonLevel() < currentPokemon.getMaxLevel()){
+            if(currentPokemon.getPokemonLevel() == Def.LEVEL_1){
+                if(currentPokemon.getPokemonHealth() >= Def.HP_COST_FOR_EVOLVE_LV2 &&currentPokemon.getAttackPoints() >= Def.AP_COST_FOR_EVOLVE_LV2){
+                    canEvolve = true;
+                }
+                else{
+                    System.out.println(currentPokemon.getPokemonName()+" dont have enough Hp/Ap to evolve.");
+                }
+            }
+            if(currentPokemon.getPokemonLevel() == Def.LEVEL_2){
+                if(currentPokemon.getPokemonHealth() >= Def.HP_COST_FOR_EVOLVE_LV3 && currentPokemon.getAttackPoints() >= Def.AP_COST_FOR_EVOLVE_LV3){
+                    canEvolve = true;
+                }
+                else{
+                    System.out.println(currentPokemon.getPokemonName()+" dont have enough Hp/Ap to evolve.");
+                }
+            }
+        }
+        else{
+            System.out.println(currentPokemon.getPokemonName()+" is at max level, can't evolve anymore");}
+        return canEvolve;
+  }
 
     public void battleVictory(Pokemon pokemon1, Pokemon pokemon2) {
         if (pokemon1.isPokemonDead()) {

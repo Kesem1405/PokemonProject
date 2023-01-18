@@ -9,6 +9,11 @@ public abstract class Pokemon {
     private int currentHp;
     private int currentAp;
     private int pokemonLevel;
+
+    public int getMaxLevel() {
+        return maxLevel;
+    }
+
     private final int maxLevel;
     private final Attacks[] attacks;
 
@@ -26,7 +31,7 @@ public abstract class Pokemon {
         this.currentHp = maxHp[pokemonLevel];
         this.maxLevel = maxLevel;
         this.pokemonLevel = 1;
-        this.currentAp = (int) (Def.START_AP_PERCENT * (this.maxAp[this.pokemonLevel-1]));
+        this.currentAp = (int) (Def.START_AP_PERCENT * (this.maxAp[this.pokemonLevel - 1]));
         this.attacks = attacks;
         tripleAttack = false;
         usedSpecialAttack = false;
@@ -42,7 +47,7 @@ public abstract class Pokemon {
     public static void getPokemonsStats(Pokemon pokemon1, Pokemon pokemon2) {
         String pokemonStats = pokemon1.getPokemonName();
         if (pokemon1.isPokemonDead()) {
-            pokemonStats += "Health: [0/"+pokemon1.maxHp[pokemon1.pokemonCurrentLevel()]+"]";
+            pokemonStats += "Health: [0/" + pokemon1.maxHp[pokemon1.pokemonCurrentLevel()] + "]";
         } else {
             pokemonStats += " || Health:[ " + pokemon1.currentHp + "/" + pokemon1.maxHp[pokemon1.pokemonCurrentLevel()] + "] || ";
         }
@@ -58,7 +63,7 @@ public abstract class Pokemon {
         }
         pokemonStats += pokemon2.getPokemonName();
         if (pokemon2.isPokemonDead()) {
-            pokemonStats += " || Health: [0/" + pokemon2.maxHp[pokemon2.pokemonCurrentLevel()]+"]";
+            pokemonStats += " || Health: [0/" + pokemon2.maxHp[pokemon2.pokemonCurrentLevel()] + "]";
         } else {
             pokemonStats += " || Health:[ " + pokemon2.currentHp + "/" + pokemon2.getPokemonMaxHp()[pokemon2.pokemonCurrentLevel()] + "] || ";
         }
@@ -150,6 +155,7 @@ public abstract class Pokemon {
     public void setElectricPower(int electricPower) {
         this.electricPower = this.electricPower + electricPower;
     }
+
     public void resetElectricPower() {
         this.electricPower = 0;
     }
@@ -191,7 +197,7 @@ public abstract class Pokemon {
         return damage;
     }
 
-    public int halfPokemonLife(){
+    public int halfPokemonLife() {
         return (int) (Def.FIFTY_PERCENT * this.getPokemonHealth());
     }
 
@@ -227,66 +233,53 @@ public abstract class Pokemon {
         return this.maxAp;
     }
 
-    public boolean pokemonEvolution() {
-        boolean success = true;
-        if(this.pokemonLevel < this.maxLevel){
-            switch(this.pokemonLevel){
-                case Def.LEVEL_1 -> {
-                    if(this.currentHp >= Def.HP_COST_FOR_EVOLVE_LV2 && this.currentAp >=Def.AP_COST_FOR_EVOLVE_LV2){
-                        this.currentHp-=Def.HP_COST_FOR_EVOLVE_LV2;
-                        this.currentAp-=Def.AP_COST_FOR_EVOLVE_LV2;
-                        String beforeEvolvedName = this.pokemonName;
-                        this.pokemonName = this.setEvolvedName();
-                        this.pokemonLevel = this.pokemonLevel+Def.LEVEL_UPGRADE;
-                        System.out.println(beforeEvolvedName+" Evolved to "+this.pokemonName);
-                    }
-                    else{
-                        System.out.println(this.getPokemonName()+" Don't have enough Hp/Ap to evolve.");
-                        success = false;
-                    }
-                }
-                case Def.LEVEL_2 ->{
-                    if(this.currentHp >= Def.HP_COST_FOR_EVOLVE_LV3 && this.currentAp >=Def.AP_COST_FOR_EVOLVE_LV3) {
-                        this.currentHp -= Def.HP_COST_FOR_EVOLVE_LV3;
-                        this.currentAp -= Def.AP_COST_FOR_EVOLVE_LV3;
-                        String beforeEvolvedName = this.pokemonName;
-                        this.pokemonName = this.setEvolvedName();
-                        this.pokemonLevel = this.pokemonLevel + Def.LEVEL_UPGRADE;
-                        System.out.println(beforeEvolvedName + " Evolved to " + this.pokemonName);
-                    }
-                    else{
-                        System.out.println(this.getPokemonName()+" Don't have enough Hp/Ap to evolve.");
-                        success = false;
-                    }
-                }
+    public Pokemon pokemonEvolution() {
+        switch (this.pokemonLevel) {
+            case Def.LEVEL_1 -> {
+                this.currentHp -= Def.HP_COST_FOR_EVOLVE_LV2;
+                this.currentAp -= Def.AP_COST_FOR_EVOLVE_LV2;
+                this.maxHp[this.pokemonLevel-1] = this.maxHp[this.pokemonLevel];
+                this.maxAp[this.pokemonLevel-1] = this.maxAp[this.pokemonLevel];
+                String beforeEvolvedName = this.pokemonName;
+                this.pokemonName = this.setEvolvedName();
+                this.pokemonLevel = this.pokemonLevel + Def.LEVEL_UPGRADE;
+
+                System.out.println(beforeEvolvedName + " Evolved to " + this.pokemonName);
+                return this;
+
+            }
+            case Def.LEVEL_2 -> {
+                this.currentHp -= Def.HP_COST_FOR_EVOLVE_LV3;
+                this.currentAp -= Def.AP_COST_FOR_EVOLVE_LV3;
+                this.maxHp[this.pokemonLevel-1] = this.maxHp[this.pokemonLevel];
+                this.maxAp[this.pokemonLevel-1] = this.maxAp[this.pokemonLevel];
+                String beforeEvolvedName = this.pokemonName;
+                this.pokemonName = this.setEvolvedName();
+                this.pokemonLevel = this.pokemonLevel + Def.LEVEL_UPGRADE;
+                System.out.println(beforeEvolvedName + " Evolved to " + this.pokemonName);
             }
         }
-        else{
-            System.out.println("You are at max level, you can't evolve anymore.");
-            success = false;
-        }
-        return success;
+        return this;
     }
 
 
-    private String setEvolvedName(){
-        this.pokemonName = this.pokemonEvolveNames[pokemonCurrentLevel()+Def.LEVEL_UPGRADE];
+    private String setEvolvedName() {
+        this.pokemonName = this.pokemonEvolveNames[pokemonCurrentLevel() + Def.LEVEL_UPGRADE];
         return this.pokemonName;
     }
 
 
-    public void tripleAttack(Pokemon opponentPokemon, int damage){
-        System.out.println("Triple damage !!" + '\n' + "Damage:" + damage*Def.TRIPLE_ATTACK_BONUS);
-        opponentPokemon.isHpEnoughToRemove(damage*Def.TRIPLE_ATTACK_BONUS);
+    public void tripleAttack(Pokemon opponentPokemon, int damage) {
+        System.out.println("Triple damage !!" + '\n' + "Damage:" + damage * Def.TRIPLE_ATTACK_BONUS);
+        opponentPokemon.isHpEnoughToRemove(damage * Def.TRIPLE_ATTACK_BONUS);
     }
 
-    public boolean kickAttack(Pokemon opponentPokemon){
-        if(this.isTripleAttack()){
-            System.out.println(this.getPokemonName() + " Triple kicked " + opponentPokemon.getPokemonName() + ", Damage: "+Def.TRIPLE_KICK_DAMAGE);
-            opponentPokemon.isHpEnoughToRemove(Def.KICK_DAMAGE*Def.TRIPLE_ATTACK_BONUS);
-        }
-        else {
-            System.out.println(this.getPokemonName() + " Kicked " + opponentPokemon.getPokemonName() + ", Damage: "+Def.KICK_DAMAGE);
+    public boolean kickAttack(Pokemon opponentPokemon) {
+        if (this.isTripleAttack()) {
+            System.out.println(this.getPokemonName() + " Triple kicked " + opponentPokemon.getPokemonName() + ", Damage: " + Def.TRIPLE_KICK_DAMAGE);
+            opponentPokemon.isHpEnoughToRemove(Def.KICK_DAMAGE * Def.TRIPLE_ATTACK_BONUS);
+        } else {
+            System.out.println(this.getPokemonName() + " Kicked " + opponentPokemon.getPokemonName() + ", Damage: " + Def.KICK_DAMAGE);
             opponentPokemon.isHpEnoughToRemove(Def.KICK_DAMAGE);
         }
         return true;
