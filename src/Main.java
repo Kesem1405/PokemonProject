@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
+    //O(1)
     public static void main(String[] args) {
         System.out.println("Welcome to my pokemon game! \n" + "\n" +
         "[Introduction]:This programs simulates a battle between 2 Pokemon.\n" +

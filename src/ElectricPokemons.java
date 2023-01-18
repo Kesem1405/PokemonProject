@@ -1,5 +1,5 @@
 public class ElectricPokemons extends Pokemon {
-
+    private final int electricPower;
 
     public ElectricPokemons(String[] names, int[] maxHp, int[] maxAp, int maxLvl, Attacks[] attacks) {
         super(names, maxHp, maxAp, maxLvl, attacks);
@@ -7,6 +7,7 @@ public class ElectricPokemons extends Pokemon {
         this.pokemonType = "Electric pokemon";
     }
 
+    //O(1)
     public boolean useAttackAbility(Pokemon opponentPokemon,int attackNumber) {
         boolean success = true;
         boolean enoughAp=isApEnoughToRemove(attackNumber);
@@ -33,6 +34,8 @@ public class ElectricPokemons extends Pokemon {
         return success;
     }
 
+
+    //O(1)
     private int getDamage(Pokemon currentPokemon, int attackNumber){
         int damage;
         if (currentPokemon.getElectricPower() != 0) {
@@ -44,6 +47,8 @@ public class ElectricPokemons extends Pokemon {
         return damage;
     }
 
+
+    //O(1)
     public boolean specialAbility(Pokemon opponentPokemon) {
         boolean success = true;
         if(this.isUsedSpecialAttack()){
@@ -59,8 +64,7 @@ public class ElectricPokemons extends Pokemon {
         return success;
     }
 
-    private  int electricPower;
-
+    //O(1)
     private double bonusElectricToAttack() {
         double bonus =this.electricPower+Def.HUNDRED_PERCENT;
         bonus/=Def.HUNDRED_PERCENT;

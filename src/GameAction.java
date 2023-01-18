@@ -1,10 +1,13 @@
 import java.util.Random;
 public class GameAction {
     private static final Attacks Kick = new Attacks("Kick",Def.KICK_DAMAGE,Def.KICK_DAMAGE,Def.KICK_NO_COST);
+
+
+    //O(n)
     public void createPokemons() {
         String[] charmanderEvolutions = {"Charmender", "Charmeleon", "Charizard"};
-        int[] charmanderMaxHealth = {Def.CHARMENDER_HP, Def.CHARMELEON_HP, Def.CHARIZARD_HP};
-        int[] charmenderMaxAttackPoints = {Def.CHARMENDER_AP, Def.CHARMELEON_AP, Def.CHARIZARD_AP};
+        int[] charmanderMaxHealth = {Def.CHARMANDER_HP, Def.CHARMELEON_HP, Def.CHARIZARD_HP};
+        int[] charmenderMaxAttackPoints = {Def.CHARMANDER_AP, Def.CHARMELEON_AP, Def.CHARIZARD_AP};
         Attacks[] charmenderAttacks = {
                 Kick,
                 new Attacks("Scratch", Def.SCRATCH_MINIMUM_DAMAGE, Def.SCRATCH_MAXIMUM_DAMAGE, Def.SCRATCH_COST),
@@ -73,6 +76,8 @@ public class GameAction {
         battle.startBattle(selectedPokemons[0],selectedPokemons[1]);
     }
 
+
+    //O(1)
     private Pokemon[] generatePokemons(Pokemon[] pokemons) {
         Random random = new Random();
         int index1 = random.nextInt(pokemons.length);

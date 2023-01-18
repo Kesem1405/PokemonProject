@@ -2,10 +2,12 @@ import java.util.Random;
 
 public class Attacks {
     private final String attackName;
-    private int minDamage;
+    private final int minDamage;
     private final int maxDamage;
     private final int apCost;
 
+
+    //O(1)
     public Attacks(String attackName, int minDamage, int maxDamage, int apCost) {
         this.attackName = attackName;
         this.minDamage = minDamage;
@@ -13,6 +15,7 @@ public class Attacks {
         this.apCost = apCost;
     }
 
+    //O(1)
     public int randomDamage(){
         Random random = new Random();
         int damageForOpponent = 0;
@@ -25,15 +28,22 @@ public class Attacks {
         return damageForOpponent;
     }
 
+    //O(1)
     public String getAttackName(){
         return this.attackName;
     }
+
+    //O(1)
     public int getCosts(){
         return this.apCost;
     }
+
+    //O(1)
     public int getMaxDamage(){
         return this.maxDamage;
     }
+
+    //O(1)
     public int getMinDamage(){
         return this.minDamage;
     }
