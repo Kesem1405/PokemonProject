@@ -50,7 +50,7 @@ public class Def {
     public static final int ELECTRIVE_MAX_HP = 35;
     public static final int ELECTRIVE_MAX_AP = 120;
     public static final int FIVE_PERCENT = 5;
-
+public static final int KICK_NO_COST = 0;
     public static final int PIKACHU_AP = 40;
     public static final int PIKACHU_HP = 50;
     public static final int RAICHU_HP = 160;

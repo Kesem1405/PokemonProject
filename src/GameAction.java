@@ -1,19 +1,22 @@
 import java.util.Random;
-
 public class GameAction {
+    private static final Attacks Kick = new Attacks("Kick",Def.KICK_DAMAGE,Def.KICK_DAMAGE,Def.KICK_NO_COST);
     public void createPokemons() {
         String[] charmanderEvolutions = {"Charmender", "Charmeleon", "Charizard"};
         int[] charmanderMaxHealth = {Def.CHARMENDER_HP, Def.CHARMELEON_HP, Def.CHARIZARD_HP};
         int[] charmenderMaxAttackPoints = {Def.CHARMENDER_AP, Def.CHARMELEON_AP, Def.CHARIZARD_AP};
         Attacks[] charmenderAttacks = {
+                Kick,
                 new Attacks("Scratch", Def.SCRATCH_MINIMUM_DAMAGE, Def.SCRATCH_MAXIMUM_DAMAGE, Def.SCRATCH_COST),
                 new Attacks("Flame Tale", Def.FLAME_TAIL_MINIMUM_DAMAGE, Def.FLAME_TAIL_MAXIMUM_DAMAGE, Def.FLAME_TAIL_COST),
                 new Attacks("Fiery Blast", Def.FIERY_BLAST_DAMAGE, Def.FIERY_BLAST_DAMAGE, Def.FIERY_BLAST_COST),
+
         };
         String[] blitzleEvolutions = {"Blitzle", "Zebstrika"};
         int[] blitzleMaxHealth = {Def.BLITZLE_HP, Def.ZEBSTRIKA_HP};
         int[] blitzleMaxAttackPoints = {Def.BLITZLE_AP, Def.ZEBSTRIKA_AP};
         Attacks[] blitzleAttacks = {
+                Kick,
                 new Attacks("Flop", Def.FLOP_MINIMUM_DAMAGE, Def.FLOP_MAXIMUM_DAMAGE, Def.FLOP_COST),
                 new Attacks("Zap Kick", Def.ZAP_KICK_MINIMUM_DAMAGE, Def.ZAP_KICK_MAXIMUM_DAMAGE, Def.ZAP_KICK_COST),
         };
@@ -21,6 +24,7 @@ public class GameAction {
         int[] salanditMaxHealth = {Def.SALANDIT_HP, Def.SALAZZLE_HP};
         int[] salanditMaxAttackPoints = {Def.SALANDIT_AP, Def.SALAZZLE_AP};
         Attacks[] salanditAttacks = {
+                Kick,
                 new Attacks("Live coal", Def.LIVE_COAL_MINIMUM_DAMAGE, Def.LIVE_COAL_MAXIMUM_DAMAGE, Def.LIVE_COAL_COST),
                 new Attacks("Fire claws", Def.FIRE_CLAWS_MINIMUM_DAMAGE, Def.FIRE_CLAWS_MAXIMUM_DAMAGE, Def.FIRE_CLAWS_COST),
         };
@@ -29,6 +33,7 @@ public class GameAction {
         int[] moltresMaxHealth = {Def.MOLTRES_HP};
         int[] moltresMaxAttackPoints = {Def.MOLTRES_AP};
         Attacks[] moltresAttacks = {
+                Kick,
                 new Attacks("Assisting heater", Def.ASSISTING_HEATER_MINIMUM_DAMAGE, Def.ASSISTING_HEATER_MAXIMUM_DAMAGE, Def.ASSISTING_HEATER_COST),
                 new Attacks("Fire wing", Def.FIRE_WING_DAMAGE, Def.FIRE_WING_DAMAGE, Def.FIRE_WING_COST),
         };
@@ -37,6 +42,7 @@ public class GameAction {
         int[] pichuMaxHealth = {Def.PICHU_HP, Def.PIKACHU_HP, Def.RAICHU_HP};
         int[] pichuMaxAttackPoints = {Def.PICHU_AP, Def.PIKACHU_AP, Def.RAICHU_AP};
         Attacks[] pichuAttacks = {
+                Kick,
                 new Attacks("Quick attack", Def.QUICK_ATTACK_DAMAGE, Def.QUICK_ATTACK_DAMAGE, Def.QUICK_ATTACK_COST),
                 new Attacks("Electro ball", Def.ELECTRO_BALL_MINIMUM_DAMAGE, Def.ELECTRO_BALL_MAXIMUM_DAMAGE, Def.ELECTRO_BALL_COST),
                 new Attacks("Electric surfer", Def.ELECTRIC_SURFER_MINIMUM_DAMAGE, Def.ELECTRIC_SURFER_MAXIMUM_DAMAGE, Def.ELECTRIC_SURFER_COST),
@@ -45,6 +51,7 @@ public class GameAction {
         int[] electabuzzMaxHealth = {Def.ELECTABUZZ_MAX_HP, Def.ELECTRIVE_MAX_HP};
         int[] electabuzzMaxAttackPoints = {Def.ELECTABUZZ_AP, Def.ELECTRIVE_MAX_AP};
         Attacks[] electabuzzAttacks = {
+                Kick,
                 new Attacks("Thunder", Def.THUNDER_MINIMUM_DAMAGE, Def.THUNDER_MAXIMUM_DAMAGE, Def.THUNDER_COST),
                 new Attacks("Thunder punch", Def.THUNDER_PUNCH_MINIMUM_DAMAGE, Def.THUNDER_PUNCH_MAXIMUM_DAMAGE, Def.THUNDER_PUNCH_COST),
         };

@@ -10,10 +10,6 @@ public class FirePokemons extends Pokemon {
         boolean success = true;
         int selfDamage = selfDamageForAttacker();
         int damage;
-        if (attackNumber == this.pokemonCurrentLevel() + 1) {
-            success = this.kickAttack(opponentPokemon);
-            return success;
-        }
         boolean enoughAp = isApEnoughToRemove(attackNumber);
         if (!enoughAp) {
             System.out.println("You dont have enough ability points for this attack");
@@ -23,7 +19,7 @@ public class FirePokemons extends Pokemon {
             if (this.isTripleAttack()) {
                 this.tripleAttack(opponentPokemon, damage);
             } else {
-                System.out.println(this.getPokemonName() + " Attacked " + opponentPokemon.getPokemonName() + " With " + this.getAttacks()[pokemonCurrentLevel()].getAttackName() + ", Damage:" + damage);
+                System.out.println(this.getPokemonName() + " Attacked " + opponentPokemon.getPokemonName() + " With " + this.getAttacks()[attackNumber].getAttackName() + ", Damage:" + damage);
                 System.out.println(this.getPokemonName() + " Self damage: [" + selfDamage + "]");
                 opponentPokemon.isHpEnoughToRemove(damage);
             }
@@ -35,15 +31,15 @@ public class FirePokemons extends Pokemon {
     public boolean specialAbility(Pokemon damaged) {
         boolean success = true;
         Random random = new Random();
-        int indexAttack1 = random.nextInt(1) + this.pokemonCurrentLevel();
-        int indexAttack2 = random.nextInt(1) + this.pokemonCurrentLevel();
+        int indexAttack1 = random.nextInt(2)+this.getPokemonLevel()-1;
+        int indexAttack2 = random.nextInt(2)+this.getPokemonLevel()-1;
         this.setPokemonHealth(this.halfPokemonLife());
         this.setPokemonAttackPoints(Def.ZERO);
         int damage = this.getAttacks()[indexAttack1].randomDamage() + this.getAttacks()[indexAttack2].randomDamage();
         damaged.isHpEnoughToRemove(damage);
         System.out.println(this.getPokemonName() + " applied special attack!");
         if (indexAttack1 == indexAttack2) {
-            System.out.println("Double " + this.getAttacks()[indexAttack1].getAttackName() + " Dealt to" + damaged.getPokemonName() + " Total damage:[" +
+            System.out.println("Double " + this.getAttacks()[indexAttack1].getAttackName() + " Dealt to " + damaged.getPokemonName() + ", Total damage:[" +
                     (this.getAttacks()[indexAttack1].randomDamage() + this.getAttacks()[indexAttack2].randomDamage()) + "]");
         } else {
             System.out.println(this.getAttacks()[indexAttack1].getAttackName() + " and " + this.getAttacks()[indexAttack2].getAttackName() + " Dealt to " + damaged.getPokemonName() + "Total damage:[" +

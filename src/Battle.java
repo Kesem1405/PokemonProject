@@ -4,16 +4,30 @@ import java.util.Scanner;
 public class Battle {
     private boolean successRound;
 
+    // O(n)
     public void startBattle(Pokemon pokemon1, Pokemon pokemon2){
+        System.out.println("Instruction: \n" +
+                "Fire pokemons: Every pokemon can evolve instead of moltres, fire pokemons special attack \n" +
+                "can be used how many times the player is choosing, the attack points will reset to 0 and his hp will \n" +
+                "decrease by 50% every time. \n" +
+                "////////////////////////////////////////////////////////////////////////////////////////////////\n"+
+                "Electric pokemons : same as fire pokemons, they can evolve, their special attack can be used once \n" +
+                "and their HP and AP will recharge to 100%. \n" +
+                "electric pokemons attacks always multiply with their electric power! \n" +
+                "every turn electric pokemon playing, his electric power got more 5% power. \n"+
+                "Waiting a turn stats is generated between: [5-30] Hp // [0-35] Ap // Triple attack next turn.\n"+
+                "--------------------------------------------------------------------------------------");
         System.out.println("Let the battle begin!");
         int turnCounter = 0;
         System.out.println(pokemon1);
         System.out.println("------ [VS] ------");
         System.out.println(pokemon2);
+        System.out.println(" ");
         this.successRound = false;
         battleProgress(pokemon1, pokemon2, turnCounter);
     }
 
+    // O(n^2)
     private void battleProgress(Pokemon pokemon1, Pokemon pokemon2, int turnCounter) {
         do {
             if(this.successRound){
@@ -62,6 +76,7 @@ public class Battle {
         }
     }
 
+    // O(n)
     private void battleMenu(Pokemon currentPokemon,Pokemon opponentPokemon){
         System.out.println(" ");
         System.out.println(currentPokemon.getPokemonName() + " " + "Turn.");
@@ -107,30 +122,10 @@ public class Battle {
     }
     private boolean pokemonAttack(Pokemon currentPokemon, Pokemon opponentPokemon) {
         boolean isAttacked;
-        int numberOfAttack = 0;
         if(currentPokemon.isTripleAttack()){
             System.out.println("TRIPLE ATTACK IS ON! All damage is x3!");
         }
-        for (int i = 0; i < currentPokemon.getPokemonLevel(); i++) {
-            if (!currentPokemon.isTripleAttack()) {
-                numberOfAttack++;
-                System.out.println("[" + numberOfAttack + "] - " + currentPokemon.getAttacks()[i].getAttackName() +
-                        " | Damage: [" + currentPokemon.getAttacks()[i].getMinDamage() + "-" + currentPokemon.getAttacks()[i].getMaxDamage() +
-                        "] | Ability costs: [" + currentPokemon.getAttacks()[i].getCosts() + "]");
-            } else {
-                numberOfAttack++;
-                System.out.println("[" + numberOfAttack + "] - " + currentPokemon.getAttacks()[i].getAttackName() +
-                        " | Damage: [" + currentPokemon.getAttacks()[i].getMinDamage()*3 + "-" + currentPokemon.getAttacks()[i].getMaxDamage()*3 +
-                        "] | Ability costs: [" + currentPokemon.getAttacks()[i].getCosts() + "]");
-            }
-        }
-        int kick = numberOfAttack + 1;
-        if(!currentPokemon.isTripleAttack()) {
-            System.out.println("[" + kick + "] - Kick | Damage: [2] | Ability cost: [FREE]");
-        }
-        else{
-            System.out.println("[" + kick + "] - Kick | Damage: [6] | Ability cost: [FREE]");
-        }
+        printAttacks(currentPokemon);
         if(currentPokemon.getPokemonType().equals("Electric pokemon")){
             System.out.println("All attacks is multiply with your energy percent!");
         }
@@ -142,6 +137,39 @@ public class Battle {
         }
         isAttacked = currentPokemon.useAttackAbility(opponentPokemon,userAttack-1);
         return isAttacked;
+    }
+
+    private void printAttacks(Pokemon currentPokemon){
+        int numberOfAttack = 0;
+        for (int i = 0; i < currentPokemon.getPokemonLevel()+1; i++) {
+            if (currentPokemon.isTripleAttack()) {
+                if (currentPokemon.getAttacks()[i].getMinDamage() == currentPokemon.getAttacks()[i].getMaxDamage()){
+                    numberOfAttack++;
+                    System.out.println("[" + numberOfAttack + "] - " + currentPokemon.getAttacks()[i].getAttackName() +
+                            " | Damage: [" + currentPokemon.getAttacks()[i].getMinDamage()*3+
+                            "] | Ability costs: [" + currentPokemon.getAttacks()[i].getCosts() + "]");
+                } else {
+                    numberOfAttack++;
+                    System.out.println("[" + numberOfAttack + "] - " + currentPokemon.getAttacks()[i].getAttackName() +
+                            " | Damage: [" + currentPokemon.getAttacks()[i].getMinDamage() * 3 + "-" + currentPokemon.getAttacks()[i].getMaxDamage() * 3 +
+                            "] | Ability costs: [" + currentPokemon.getAttacks()[i].getCosts() + "]");
+                }
+            }else{
+                if (currentPokemon.getAttacks()[i].getMinDamage() == currentPokemon.getAttacks()[i].getMaxDamage()){
+                    numberOfAttack++;
+                    System.out.println("[" + numberOfAttack + "] - " + currentPokemon.getAttacks()[i].getAttackName() +
+                            " | Damage: [" + currentPokemon.getAttacks()[i].getMinDamage() +
+                            "] | Ability costs: [" + currentPokemon.getAttacks()[i].getCosts() + "]");
+                }
+                else{
+                    numberOfAttack++;
+                    System.out.println("[" + numberOfAttack + "] - " + currentPokemon.getAttacks()[i].getAttackName() +
+                            " | Damage: [" + currentPokemon.getAttacks()[i].getMinDamage() + "-" + currentPokemon.getAttacks()[i].getMaxDamage() +
+                            "] | Ability costs: [" + currentPokemon.getAttacks()[i].getCosts() + "]");
+
+                }
+            }
+        }
     }
 
     private boolean charge(Pokemon currentPokemon) {
@@ -244,9 +272,9 @@ public class Battle {
 
     private boolean checkIfPokemonCanEvolve(Pokemon currentPokemon){
         boolean canEvolve = false;
-        if(currentPokemon.getPokemonLevel() < currentPokemon.getMaxLevel()){
+        if(currentPokemon.checkIfPokemonAtMaxLevel()){
             if(currentPokemon.getPokemonLevel() == Def.LEVEL_1){
-                if(currentPokemon.getPokemonHealth() >= Def.HP_COST_FOR_EVOLVE_LV2 &&currentPokemon.getAttackPoints() >= Def.AP_COST_FOR_EVOLVE_LV2){
+                if(currentPokemon.checkIfPokemonCanEvolveLv2()){
                     canEvolve = true;
                 }
                 else{
@@ -254,7 +282,7 @@ public class Battle {
                 }
             }
             if(currentPokemon.getPokemonLevel() == Def.LEVEL_2){
-                if(currentPokemon.getPokemonHealth() >= Def.HP_COST_FOR_EVOLVE_LV3 && currentPokemon.getAttackPoints() >= Def.AP_COST_FOR_EVOLVE_LV3){
+                if(currentPokemon.checkIfPokemonCanEvolveLv3()){
                     canEvolve = true;
                 }
                 else{
@@ -267,7 +295,7 @@ public class Battle {
         return canEvolve;
   }
 
-    public void battleVictory(Pokemon pokemon1, Pokemon pokemon2) {
+    private void battleVictory(Pokemon pokemon1, Pokemon pokemon2) {
         if (pokemon1.isPokemonDead()) {
             System.out.println("There is a winner! " + pokemon2.getPokemonName());
         }

@@ -156,6 +156,16 @@ public abstract class Pokemon {
         this.electricPower = this.electricPower + electricPower;
     }
 
+    public boolean checkIfPokemonAtMaxLevel(){
+        return this.pokemonLevel < this.maxLevel;
+    }
+    public boolean checkIfPokemonCanEvolveLv2(){
+        return this.currentHp >= Def.HP_COST_FOR_EVOLVE_LV2 && this.currentAp >= Def.AP_COST_FOR_EVOLVE_LV2;
+    }
+    public boolean checkIfPokemonCanEvolveLv3(){
+        return this.currentHp >= Def.HP_COST_FOR_EVOLVE_LV3 && this.currentAp >= Def.AP_COST_FOR_EVOLVE_LV3;
+    }
+
     public void resetElectricPower() {
         this.electricPower = 0;
     }

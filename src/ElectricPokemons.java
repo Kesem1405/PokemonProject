@@ -10,25 +10,38 @@ public class ElectricPokemons extends Pokemon {
     public boolean useAttackAbility(Pokemon opponentPokemon,int attackNumber) {
         boolean success = true;
         boolean enoughAp=isApEnoughToRemove(attackNumber);
-        if (attackNumber == this.pokemonCurrentLevel() + 1) {
-            success = this.kickAttack(opponentPokemon);
-            return success;
-        }
-        int damage;
         if (!enoughAp){
             System.out.println(this.getPokemonName() + " You dont have enough ability points for this attack");
             success= false;
         }else {
-            damage = (int) ((this.getAttacks()[attackNumber].randomDamage())*bonusElectricToAttack());
+            int damage = getDamage(this, attackNumber);
             if (this.isTripleAttack()){
                 tripleAttack(opponentPokemon,damage);}
-
             else {
-                System.out.println(this.getPokemonName()+" Attacked " +opponentPokemon.getPokemonName()+ " With " +this.getAttacks()[pokemonCurrentLevel()].getAttackName()+", Damage:[" +(damage*bonusElectricToAttack())+"]");
-                opponentPokemon.isHpEnoughToRemove(damage);
+                if (this.getElectricPower() != 0) {
+                    System.out.println(this.getPokemonName() + " Attacked " + opponentPokemon.getPokemonName() + " With "
+                            + this.getAttacks()[attackNumber].getAttackName() + ", Damage:[" + (damage * bonusElectricToAttack()) + "]");
+                    opponentPokemon.isHpEnoughToRemove(damage);
+                }
+                else{
+                    System.out.println(this.getPokemonName() + " Attacked " + opponentPokemon.getPokemonName() + " With "
+                            + this.getAttacks()[attackNumber].getAttackName() + ", Damage:[" + damage+"]");
+                    opponentPokemon.isHpEnoughToRemove(damage);
+                }
             }
         }
         return success;
+    }
+
+    private int getDamage(Pokemon currentPokemon, int attackNumber){
+        int damage;
+        if (currentPokemon.getElectricPower() != 0) {
+            damage = (int) ((currentPokemon.getAttacks()[attackNumber].randomDamage()) * bonusElectricToAttack());
+        }
+        else{
+            damage = currentPokemon.getAttacks()[attackNumber].randomDamage();
+        }
+        return damage;
     }
 
     public boolean specialAbility(Pokemon opponentPokemon) {

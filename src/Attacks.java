@@ -20,7 +20,7 @@ public class Attacks {
             damageForOpponent = random.nextInt(this.maxDamage - this.minDamage + 1) + this.minDamage;
         }
         else{
-            this.minDamage = damageForOpponent;
+           damageForOpponent = this.minDamage;
         }
         return damageForOpponent;
     }
