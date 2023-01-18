@@ -120,6 +120,7 @@ public class Battle {
             }
         }
     }
+    // O(n)
     private boolean pokemonAttack(Pokemon currentPokemon, Pokemon opponentPokemon) {
         boolean isAttacked;
         if(currentPokemon.isTripleAttack()){
@@ -139,6 +140,7 @@ public class Battle {
         return isAttacked;
     }
 
+    //O(n)
     private void printAttacks(Pokemon currentPokemon){
         int numberOfAttack = 0;
         for (int i = 0; i < currentPokemon.getPokemonLevel()+1; i++) {
@@ -172,6 +174,7 @@ public class Battle {
         }
     }
 
+    //O(1)
     private boolean charge(Pokemon currentPokemon) {
         this.successRound = true;
         int chargeHp;
@@ -207,6 +210,7 @@ public class Battle {
         return successRound;
     }
 
+    //O(1)
     private boolean specialPokemonAction(Pokemon currentPokemon, Pokemon opponentPokemon) {
         boolean success = false;
         if (!currentPokemon.isUsedSpecialAttack()){
@@ -218,7 +222,7 @@ public class Battle {
         }
         return success;
     }
-
+        //O(1)
         private void generateStatsPerRound(Pokemon currentPokemon) {
         Random randomHp = new Random();
         Random randomAp = new Random();
@@ -237,6 +241,7 @@ public class Battle {
 
     }
 
+    //O(1)
     private void addElectricPokemonStats(Pokemon pokemon1) {
         if (pokemon1.getPokemonType().equals("Electric pokemon")) {
             if (pokemon1.isPokemonHpUnder20Percent()) {
@@ -248,7 +253,7 @@ public class Battle {
         }
     }
 
-
+    //O(1)
     private void checkPokemonHpAndAp(Pokemon currentPokemon) {
         if (currentPokemon.isHpBiggerThanMaxHp()) {
             int removalHp = currentPokemon.differenceHp();
@@ -259,7 +264,7 @@ public class Battle {
             currentPokemon.removeDifferenceAp(differenceAp);
         }
     }
-
+    //O(1)
     private int getPlayerTurn(int turnCounter) {
         int playerID;
         if (turnCounter % 2 == 0) {
@@ -269,7 +274,7 @@ public class Battle {
         }
         return playerID;
     }
-
+    //O(1)
     private boolean checkIfPokemonCanEvolve(Pokemon currentPokemon){
         boolean canEvolve = false;
         if(currentPokemon.checkIfPokemonAtMaxLevel()){
@@ -294,7 +299,7 @@ public class Battle {
             System.out.println(currentPokemon.getPokemonName()+" is at max level, can't evolve anymore");}
         return canEvolve;
   }
-
+    //O(1)
     private void battleVictory(Pokemon pokemon1, Pokemon pokemon2) {
         if (pokemon1.isPokemonDead()) {
             System.out.println("There is a winner! " + pokemon2.getPokemonName());

@@ -6,6 +6,7 @@ public class FirePokemons extends Pokemon {
         this.pokemonType = "Fire pokemon";
     }
 
+    //O(1)
     public boolean useAttackAbility(Pokemon opponentPokemon, int attackNumber) {
         boolean success = true;
         int selfDamage = selfDamageForAttacker();
@@ -28,6 +29,7 @@ public class FirePokemons extends Pokemon {
     }
 
 
+    //O(1)
     public boolean specialAbility(Pokemon damaged) {
         boolean success = true;
         Random random = new Random();
@@ -48,6 +50,7 @@ public class FirePokemons extends Pokemon {
         return success;
     }
 
+    //O(1)
     private int selfDamageForAttacker() {
         Random random = new Random();
         int damage = 0;
@@ -58,6 +61,7 @@ public class FirePokemons extends Pokemon {
         return damage;
     }
 
+    //O(1)
     public String toString() {
         return super.toString() + " , " + pokemonType;
     }
