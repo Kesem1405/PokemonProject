@@ -18,7 +18,7 @@ public class Attacks {
     //O(1)
     public int randomDamage(){
         Random random = new Random();
-        int damageForOpponent = 0;
+        int damageForOpponent;
         if(this.minDamage != this.maxDamage) {
             damageForOpponent = random.nextInt(this.maxDamage - this.minDamage + 1) + this.minDamage;
         }

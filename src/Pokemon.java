@@ -232,11 +232,7 @@ public abstract class Pokemon {
 
     //O(1)
     public boolean isApEnoughToRemove(int attackNumber) {
-        boolean isEnough = false;
-        if (this.currentAp >= this.getAttacks()[attackNumber].getCosts()) {
-            isEnough = true;
-        }
-        return isEnough;
+        return this.currentAp >= this.getAttacks()[attackNumber].getCosts();
     }
 
     //O(1)
@@ -312,17 +308,6 @@ public abstract class Pokemon {
     public void tripleAttack(Pokemon opponentPokemon, int damage) {
         System.out.println("Triple damage !!" + '\n' + "Damage:" + damage * Def.TRIPLE_ATTACK_BONUS);
         opponentPokemon.isHpEnoughToRemove(damage * Def.TRIPLE_ATTACK_BONUS);
-    }
-
-    public boolean kickAttack(Pokemon opponentPokemon) {
-        if (this.isTripleAttack()) {
-            System.out.println(this.getPokemonName() + " Triple kicked " + opponentPokemon.getPokemonName() + ", Damage: " + Def.TRIPLE_KICK_DAMAGE);
-            opponentPokemon.isHpEnoughToRemove(Def.KICK_DAMAGE * Def.TRIPLE_ATTACK_BONUS);
-        } else {
-            System.out.println(this.getPokemonName() + " Kicked " + opponentPokemon.getPokemonName() + ", Damage: " + Def.KICK_DAMAGE);
-            opponentPokemon.isHpEnoughToRemove(Def.KICK_DAMAGE);
-        }
-        return true;
     }
 
     //O(1)
